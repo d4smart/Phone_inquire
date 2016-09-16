@@ -7,12 +7,19 @@
  * Email:   d4smart@foxmail.com
  * Github:  https://github.com/d4smart
  */
+
 namespace app;
+use libs\ImHttpRequest;
 
 class QueryPhone
 {
+    const TAOBAO_API = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm";
+
     public static function query($phone) {
-        var_dump(self::verifyPhone($phone));
+        if (self::verifyPhone($phone)) {
+            $response = ImHttpRequest::request(self::TAOBAO_API, ['tel' => $phone]);
+            var_dump($response);
+        }
     }
 
     /**

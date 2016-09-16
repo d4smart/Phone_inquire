@@ -7,6 +7,7 @@
  * Email:   d4smart@foxmail.com
  * Github:  https://github.com/d4smart
  */
+
 class autoload
 {
     public static function load($classname) {
