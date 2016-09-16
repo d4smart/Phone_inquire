@@ -7,3 +7,6 @@
  * Email:   d4smart@foxmail.com
  * Github:  https://github.com/d4smart
  */
+require_once "autoload.php";
+
+app\QueryPhone::query('15171444706');
