@@ -23,7 +23,7 @@
             <input type="text" id="phoneText" class="form-control"/>
             <span class="input-group-btn">
                     <button class="btn btn-default" id="subPhone">查询</button>
-                </span>
+            </span>
         </div>
     </div>
     <table class="table" id="phoneInfo">
@@ -50,7 +50,7 @@
     $(document).ready(function(){
         $('#subPhone').click(function(){
             var phone = $('#phoneText').val();
-            IMOOC.GLOBAL.ajax('api.php', 'post', {phone: phone}, 'json', IMOOC.APPS.QUERYPHONE.dataCallback);
+            IMOOC.GLOBAL.ajax('api.php', 'get', {phone: phone}, 'json', IMOOC.APPS.QUERYPHONE.dataCallback);
         });
     });
 </script>

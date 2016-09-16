@@ -18,7 +18,7 @@ class QueryPhone
     public static function query($phone) {
         if (self::verifyPhone($phone)) {
             $response = ImHttpRequest::request(self::TAOBAO_API, ['tel' => $phone]);
-            var_dump($response);
+            var_dump(self::formatData($response));
         }
     }
 
@@ -35,5 +35,21 @@ class QueryPhone
             return false;
         }
         return false;
+    }
+
+    /**
+     * 格式化API请求回来的数据
+     * @param string数据
+     * @return array数据
+     */
+    public static function formatData($data=null) {
+        $ret = false;
+
+        if ($data) {
+            preg_match_all("/(\w+):'([^']+)/", $data, $res);
+            //var_dump($res);
+            $ret = array_combine($res[1], $res[2]);
+        }
+        return $ret;
     }
 }
