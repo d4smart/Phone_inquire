@@ -5,9 +5,15 @@
 
 $(document).ready(function () {
     $('#subPhone').click(function () {
+        var pattern = /^[0-9]{11}$/;
         var phone = $('#phoneText').val();
-        if (phone.length == 11) {
+
+        if (phone.match(pattern)) {
             IMOOC.GLOBAL.AJAX('api.php', 'post', {'tel': phone}, 'json', IMOOC.APPS.QUERYPHONE.AJAXCALLBACK);
+        } else {
+            IMOOC.APPS.QUERYPHONE.HIDEINFO();
+            $('.error-message').show();
+            $('.error-message').text('手机号码格式不正确！');
         }
     });
 });
@@ -19,6 +25,7 @@ IMOOC.APPS = {};
 IMOOC.APPS.QUERYPHONE = {};
 IMOOC.APPS.QUERYPHONE.AJAXCALLBACK = function (data) {
     if (data.code == 200) {
+        $('.error-message').hide();
         IMOOC.APPS.QUERYPHONE.SHOWINFO();
         $('#phoneNumber').text(data.telString);
         $('#phoneProvince').text(data.province);
@@ -26,7 +33,8 @@ IMOOC.APPS.QUERYPHONE.AJAXCALLBACK = function (data) {
         $('#phoneMsg').text(data.msg);
     } else {
         IMOOC.APPS.QUERYPHONE.HIDEINFO();
-        alert(data.msg);
+        $('.error-message').show();
+        $('.error-message').text(data.msg);
     }
 };
 IMOOC.APPS.QUERYPHONE.SHOWINFO = function () {

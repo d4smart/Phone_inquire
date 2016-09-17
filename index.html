@@ -8,42 +8,57 @@
     <script src="static/js/base.js"></script>
     <style>
         .container {
-            width: 300px;
+            width: 360px;
+            float: left;
+            margin: 30px;
+            font-family: "Microsoft YaHei", "微软雅黑", Consolas;
+        }
+        .input-group {
+            margin: 30px;
         }
         #phoneInfo {
             display: none;
+        }
+        .error-message {
+            color: red;
+            font-size: large;
+            display: none;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="form-group">
-        <label for="">请输入手机号码</label>
+        <h1>请输入手机号码</h1>
         <div class="input-group">
-            <input type="text" id="phoneText" class="form-control"/>
+            <input type="text" id="phoneText" class="form-control" placeholder="手机号码为11位数字哦 ^_^"/>
             <span class="input-group-btn">
                     <button class="btn btn-default" id="subPhone">查询</button>
             </span>
         </div>
     </div>
-    <table class="table" id="phoneInfo">
+
+    <table class="table table-bordered table-hover" id="phoneInfo">
         <tr>
-            <td>手机号码</td>
+            <th>手机号码</th>
             <td id="phoneNumber"></td>
         </tr>
         <tr>
-            <td>归属地</td>
+            <th>归属地</th>
             <td id="phoneProvince"></td>
         </tr>
         <tr>
-            <td>运营商</td>
+            <th>运营商</th>
             <td id="phoneCatName"></td>
         </tr>
         <tr>
-            <td>其他</td>
+            <th>其他</th>
             <td id="phoneMsg"></td>
         </tr>
     </table>
+
+    <div class="error-message"><!-- 错误提示信息 --></div>
 </div>
 </body>
 </html>

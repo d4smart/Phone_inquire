@@ -10,7 +10,6 @@
 
 namespace libs;
 
-
 class ImHttpRequest
 {
     public static function request($url, $params) {
@@ -18,6 +17,7 @@ class ImHttpRequest
 
         if ($url) {
             if (is_array($params) and count($params)) {
+                //生成对应url
                 if (strrpos($url, '?')) {
                     $url = $url.'&'.http_build_query($params);
                 } else {

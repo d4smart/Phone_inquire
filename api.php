@@ -20,7 +20,7 @@ if ($info) {
     $data = $info;
     $data['code'] = 200;
 } else {
-    $data['msg'] = '号码不正确！';
+    $data['msg'] = '手机号码不存在！';
     $data['code'] = 400;
 }
 
