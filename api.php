@@ -10,5 +10,18 @@
 
 require_once "autoload.php";
 
-$info = app\QueryPhone::query('15896209327');
-var_dump($info);
+$params = $_POST;
+$phone = isset($_POST['tel'])? $_POST['tel']: null;
+
+$info = app\QueryPhone::query($phone);
+
+$data = [];
+if ($info) {
+    $data = $info;
+    $data['code'] = 200;
+} else {
+    $data['msg'] = '号码不正确！';
+    $data['code'] = 400;
+}
+
+echo json_encode($data);

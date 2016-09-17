@@ -3,9 +3,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>手机归属地查询</title>
-    <link rel="stylesheet" href="statis/css/bootstrap.min.css"/>
-    <script src="statis/js/jquery.min.js"></script>
-    <script src="statis/js/base.js"></script>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css"/>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/base.js"></script>
     <style>
         .container {
             width: 300px;
@@ -46,12 +46,4 @@
     </table>
 </div>
 </body>
-<script>
-    $(document).ready(function(){
-        $('#subPhone').click(function(){
-            var phone = $('#phoneText').val();
-            IMOOC.GLOBAL.ajax('api.php', 'get', {phone: phone}, 'json', IMOOC.APPS.QUERYPHONE.dataCallback);
-        });
-    });
-</script>
 </html>
