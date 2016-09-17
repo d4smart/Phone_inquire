@@ -10,4 +10,5 @@
 
 require_once "autoload.php";
 
-app\QueryPhone::query('15171444706');
+$info = app\QueryPhone::query('15896209327');
+var_dump($info);

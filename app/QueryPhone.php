@@ -10,16 +10,38 @@
 
 namespace app;
 use libs\ImHttpRequest;
+use libs\ImRedis;
 
 class QueryPhone
 {
     const TAOBAO_API = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm";
+    const CACHE_KEY = "PHONE:INFO";
 
-    public static function query($phone) {
+    public static function query($phone)
+    {
+        $ret = [];
+
         if (self::verifyPhone($phone)) {
-            $response = ImHttpRequest::request(self::TAOBAO_API, ['tel' => $phone]);
-            var_dump(self::formatData($response));
+            $redisKey = $phone;
+            $phoneInfo = ImRedis::getRedis()->hGet(self::CACHE_KEY, $redisKey);
+
+            if ($phoneInfo) {
+                $ret = json_decode($phoneInfo, true);
+                $ret['msg'] = '数据由d4smart提供';
+
+            } else {
+                $response = ImHttpRequest::request(self::TAOBAO_API, ['tel' => $phone]);
+                $data = self::formatData($response);
+
+                if ($data) {
+                    $json = json_encode($data);
+                    ImRedis::getRedis()->hSet(self::CACHE_KEY, $redisKey, $json);
+                    $data['msg'] = '数据由淘宝网提供';
+                    $ret = $data;
+                }
+            }
         }
+        return $ret;
     }
 
     /**
@@ -40,7 +62,7 @@ class QueryPhone
     /**
      * 格式化API请求回来的数据
      * @param string数据
-     * @return array数据
+     * @return array形式的数据
      */
     public static function formatData($data=null) {
         $ret = false;
