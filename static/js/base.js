@@ -27,9 +27,11 @@ IMOOC.APPS.QUERYPHONE.AJAXCALLBACK = function (data) {
     if (data.code == 200) {
         $('.error-message').hide();
         IMOOC.APPS.QUERYPHONE.SHOWINFO();
-        $('#phoneNumber').text(data.telString);
-        $('#phoneProvince').text(data.province);
-        $('#phoneCatName').text(data.catName);
+        $('#phoneNumber').text(data.result.phone);
+        $('#phoneArea').text(data.result.province + ' ' + data.result.city);
+        $('#phoneAreaCode').text(data.result.areacode);
+        $('#phonePostalCode').text(data.result.zip);
+        $('#phoneCard').text(data.result.card);
         $('#phoneMsg').text(data.msg);
     } else {
         IMOOC.APPS.QUERYPHONE.HIDEINFO();

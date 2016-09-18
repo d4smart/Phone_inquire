@@ -25,7 +25,7 @@ class ImHttpRequest
                 }
 
                 //淘宝api默认为gbk编码，需要加上utf-8转换
-                $response = iconv('GBK', 'UTF-8', file_get_contents($url));
+                $response = file_get_contents($url);
             }
         }
 

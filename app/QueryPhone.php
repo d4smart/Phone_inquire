@@ -14,8 +14,10 @@ use libs\ImRedis;
 
 class QueryPhone
 {
-    const TAOBAO_API = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm";
-    const CACHE_KEY = "PHONE:INFO";
+    //const TAOBAO_API = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm";
+    const HaoService_API = "http://apis.haoservice.com/mobile";
+    const key = "a04a738d979243e5aecbaedfea6c21f4";
+    const CACHE_KEY = "PhoneInfo";
 
     public static function query($phone)
     {
@@ -30,13 +32,13 @@ class QueryPhone
                 $ret['msg'] = '数据由d4smart提供';
 
             } else {
-                $response = ImHttpRequest::request(self::TAOBAO_API, ['tel' => $phone]);
-                $data = self::formatData($response);
+                $response = ImHttpRequest::request(self::HaoService_API, ['phone' => $phone, 'key' => self::key]);
+                //$data = self::formatData($response);
+                $data = json_decode($response, true);
 
-                if ($data) {
-                    $json = json_encode($data);
-                    ImRedis::getRedis()->hSet(self::CACHE_KEY, $redisKey, $json);
-                    $data['msg'] = '数据由淘宝网提供';
+                if ($data['error_code'] == 0) {
+                    ImRedis::getRedis()->hSet(self::CACHE_KEY, $redisKey, $response);
+                    $data['msg'] = '数据由HaoService提供';
                     $ret = $data;
                 }
             }
@@ -64,7 +66,7 @@ class QueryPhone
      * @param string数据
      * @return array形式的数据
      */
-    public static function formatData($data=null) {
+    /*public static function formatData($data=null) {
         $ret = false;
 
         if ($data) {
@@ -73,5 +75,5 @@ class QueryPhone
             $ret = array_combine($res[1], $res[2]);
         }
         return $ret;
-    }
+    }*/
 }
