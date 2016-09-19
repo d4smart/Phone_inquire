@@ -1,12 +1,12 @@
 手机号码归属地查询应用
 
-使用说明：   访问http://www.d4smarter.com/phone-inquire， 输入手机号码即可查询
+使用说明：   访问http://www.d4smarter.com/phone-inquire ， 输入手机号码即可查询
 使用API：    淘宝网 -> HaoService -> 聚合数据（不限制查询次数，数据比较全）
 工作流程：   使用第三方API，返回手机号码归属地查询结果，同时将已经查询到的数据存储到Redis数据库里，再次调用直接从Redis数据库中查询
 应用页面：   http://www.d4smarter.com/phone-inquire
 
 最终完成了可供第三方调用的API接口
 1. GET:     http://www.d4smarter.com/phone-inquire/api.php?phone=15896209327
-2. POST:    http://www.d4smarter.com/phone-inquire/api.php； Post data： phone=15896209327
+2. POST:    http://www.d4smarter.com/phone-inquire/api.php ； Post data： phone=15896209327
 
 联系作者：   d4smart@foxmail.com
