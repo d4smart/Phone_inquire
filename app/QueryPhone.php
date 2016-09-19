@@ -14,9 +14,11 @@ use libs\ImRedis;
 
 class QueryPhone
 {
-    //const TAOBAO_API = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm";
-    const HaoService_API = "http://apis.haoservice.com/mobile";
-    const key = "a04a738d979243e5aecbaedfea6c21f4";
+    //const TAOBAO_API = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm";   //淘宝api
+    /*const HaoService_API = "http://apis.haoservice.com/mobile";   //HaoService api
+    const key = "a04a738d979243e5aecbaedfea6c21f4";*/
+    const Juhe_API = "http://apis.juhe.cn/mobile/get";  //聚合数据api
+    const AppKey = "d139f1c0deec5f7c90fb09e0c52a9758";  //Appkey
     const CACHE_KEY = "PhoneInfo";
 
     public static function query($phone)
@@ -32,13 +34,13 @@ class QueryPhone
                 $ret['msg'] = '数据由d4smart提供';
 
             } else {
-                $response = ImHttpRequest::request(self::HaoService_API, ['phone' => $phone, 'key' => self::key]);
+                $response = ImHttpRequest::request(self::Juhe_API, ['phone' => $phone, 'key' => self::AppKey]);
                 //$data = self::formatData($response);
                 $data = json_decode($response, true);
 
                 if ($data['error_code'] == 0) {
                     ImRedis::getRedis()->hSet(self::CACHE_KEY, $redisKey, $response);
-                    $data['msg'] = '数据由HaoService提供';
+                    $data['msg'] = '数据由聚合数据提供';
                     $ret = $data;
                 }
             }

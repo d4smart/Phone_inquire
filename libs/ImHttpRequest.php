@@ -24,7 +24,7 @@ class ImHttpRequest
                     $url = $url.'?'.http_build_query($params);
                 }
 
-                //淘宝api默认为gbk编码，需要加上utf-8转换
+                //获取接口返回数据，默认为json字符串
                 $response = file_get_contents($url);
             }
         }

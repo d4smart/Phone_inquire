@@ -3,13 +3,16 @@
  * JS基础类（依赖jQuery）
  */
 
+var phone = ""; //全局变量，用于存储电话号
+
 $(document).ready(function () {
     $('#subPhone').click(function () {
+        //11位数字的简单正则验证
         var pattern = /^[0-9]{11}$/;
-        var phone = $('#phoneText').val();
+        phone = $('#phoneText').val();
 
         if (phone.match(pattern)) {
-            IMOOC.GLOBAL.AJAX('api.php', 'post', {'tel': phone}, 'json', IMOOC.APPS.QUERYPHONE.AJAXCALLBACK);
+            IMOOC.GLOBAL.AJAX('api.php', 'post', {'phone': phone}, 'json', IMOOC.APPS.QUERYPHONE.AJAXCALLBACK);
         } else {
             IMOOC.APPS.QUERYPHONE.HIDEINFO();
             $('.error-message').show();
@@ -27,10 +30,11 @@ IMOOC.APPS.QUERYPHONE.AJAXCALLBACK = function (data) {
     if (data.code == 200) {
         $('.error-message').hide();
         IMOOC.APPS.QUERYPHONE.SHOWINFO();
-        $('#phoneNumber').text(data.result.phone);
+        $('#phoneNumber').text(phone);
         $('#phoneArea').text(data.result.province + ' ' + data.result.city);
         $('#phoneAreaCode').text(data.result.areacode);
         $('#phonePostalCode').text(data.result.zip);
+        $('#phoneCompany').text(data.result.company);
         $('#phoneCard').text(data.result.card);
         $('#phoneMsg').text(data.msg);
     } else {
